@@ -559,3 +559,1679 @@ struct NumberProtocolBuilder[self_type: ImplicitlyDestructible]:
         )
         return self
 
+    # ------------------------------------------------------------------
+    # Binary slots — C type: binaryfunc  def(PyObject *, PyObject *) -> PyObject *
+    # Raise NotImplementedError() to return Py_NotImplemented.
+    # ------------------------------------------------------------------
+
+    def def_add[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__add__` via the `nb_add` slot.
+
+        Called by `obj + other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_add
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_add](
+            self._ptr
+        )
+        return self
+
+    def def_and[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__and__` via the `nb_and` slot.
+
+        Called by `obj & other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_and
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_and](
+            self._ptr
+        )
+        return self
+
+    def def_divmod[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__divmod__` via the `nb_divmod` slot.
+
+        Called by `divmod(obj, other)`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_divmod
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_divmod](
+            self._ptr
+        )
+        return self
+
+    def def_floordiv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__floordiv__` via the `nb_floor_divide` slot.
+
+        Called by `obj // other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_floor_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_floor_divide
+        ](self._ptr)
+        return self
+
+    def def_lshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__lshift__` via the `nb_lshift` slot.
+
+        Called by `obj << other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_lshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_lshift](
+            self._ptr
+        )
+        return self
+
+    def def_matmul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__matmul__` via the `nb_matrix_multiply` slot.
+
+        Called by `obj @ other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_matrix_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_matrix_multiply
+        ](self._ptr)
+        return self
+
+    def def_mod[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__mod__` via the `nb_remainder` slot.
+
+        Called by `obj % other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_remainder
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_remainder](
+            self._ptr
+        )
+        return self
+
+    def def_mul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__mul__` via the `nb_multiply` slot.
+
+        Called by `obj * other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_multiply](
+            self._ptr
+        )
+        return self
+
+    def def_or[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__or__` via the `nb_or` slot.
+
+        Called by `obj | other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_or
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_or](
+            self._ptr
+        )
+        return self
+
+    def def_rshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__rshift__` via the `nb_rshift` slot.
+
+        Called by `obj >> other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_rshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_rshift](
+            self._ptr
+        )
+        return self
+
+    def def_sub[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__sub__` via the `nb_subtract` slot.
+
+        Called by `obj - other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_subtract
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_subtract](
+            self._ptr
+        )
+        return self
+
+    def def_truediv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__truediv__` via the `nb_true_divide` slot.
+
+        Called by `obj / other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_true_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_true_divide
+        ](self._ptr)
+        return self
+
+    def def_xor[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__xor__` via the `nb_xor` slot.
+
+        Called by `obj ^ other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_xor
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[Self.self_type, method, PySlotIndex.nb_xor](
+            self._ptr
+        )
+        return self
+
+    # In-place binary slots
+
+    def def_iadd[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__iadd__` via the `nb_inplace_add` slot.
+
+        Called by `obj += other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_add
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_add
+        ](self._ptr)
+        return self
+
+    def def_iand[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__iand__` via the `nb_inplace_and` slot.
+
+        Called by `obj &= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_and
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_and
+        ](self._ptr)
+        return self
+
+    def def_ifloordiv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ifloordiv__` via the `nb_inplace_floor_divide` slot.
+
+        Called by `obj //= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_floor_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_floor_divide
+        ](self._ptr)
+        return self
+
+    def def_ilshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ilshift__` via the `nb_inplace_lshift` slot.
+
+        Called by `obj <<= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_lshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_lshift
+        ](self._ptr)
+        return self
+
+    def def_imatmul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imatmul__` via the `nb_inplace_matrix_multiply` slot.
+
+        Called by `obj @= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_matrix_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_matrix_multiply
+        ](self._ptr)
+        return self
+
+    def def_imod[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imod__` via the `nb_inplace_remainder` slot.
+
+        Called by `obj %= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_remainder
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_remainder
+        ](self._ptr)
+        return self
+
+    def def_imul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imul__` via the `nb_inplace_multiply` slot.
+
+        Called by `obj *= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_multiply
+        ](self._ptr)
+        return self
+
+    def def_ior[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ior__` via the `nb_inplace_or` slot.
+
+        Called by `obj |= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_or
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_or
+        ](self._ptr)
+        return self
+
+    def def_irshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__irshift__` via the `nb_inplace_rshift` slot.
+
+        Called by `obj >>= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_rshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_rshift
+        ](self._ptr)
+        return self
+
+    def def_isub[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__isub__` via the `nb_inplace_subtract` slot.
+
+        Called by `obj -= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_subtract
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_subtract
+        ](self._ptr)
+        return self
+
+    def def_itruediv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__itruediv__` via the `nb_inplace_true_divide` slot.
+
+        Called by `obj /= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_true_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_true_divide
+        ](self._ptr)
+        return self
+
+    def def_ixor[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ixor__` via the `nb_inplace_xor` slot.
+
+        Called by `obj ^= other`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_xor
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary[
+            Self.self_type, method, PySlotIndex.nb_inplace_xor
+        ](self._ptr)
+        return self
+
+    # Non-raising binary overloads
+
+    def def_add[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__add__` via the `nb_add` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_add
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_add](
+            self._ptr
+        )
+        return self
+
+    def def_and[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__and__` via the `nb_and` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_and
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_and](
+            self._ptr
+        )
+        return self
+
+    def def_divmod[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__divmod__` via the `nb_divmod` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_divmod
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_divmod](
+            self._ptr
+        )
+        return self
+
+    def def_floordiv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__floordiv__` via the `nb_floor_divide` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_floor_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_floor_divide
+        ](self._ptr)
+        return self
+
+    def def_lshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__lshift__` via the `nb_lshift` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_lshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_lshift](
+            self._ptr
+        )
+        return self
+
+    def def_matmul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__matmul__` via the `nb_matrix_multiply` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_matrix_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_matrix_multiply
+        ](self._ptr)
+        return self
+
+    def def_mod[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__mod__` via the `nb_remainder` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_remainder
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_remainder
+        ](self._ptr)
+        return self
+
+    def def_mul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__mul__` via the `nb_multiply` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_multiply
+        ](self._ptr)
+        return self
+
+    def def_or[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__or__` via the `nb_or` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_or
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_or](
+            self._ptr
+        )
+        return self
+
+    def def_rshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__rshift__` via the `nb_rshift` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_rshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_rshift](
+            self._ptr
+        )
+        return self
+
+    def def_sub[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__sub__` via the `nb_subtract` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_subtract
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_subtract
+        ](self._ptr)
+        return self
+
+    def def_truediv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__truediv__` via the `nb_true_divide` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_true_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_true_divide
+        ](self._ptr)
+        return self
+
+    def def_xor[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__xor__` via the `nb_xor` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_xor
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[Self.self_type, method, PySlotIndex.nb_xor](
+            self._ptr
+        )
+        return self
+
+    def def_iadd[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__iadd__` via the `nb_inplace_add` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_add
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_add
+        ](self._ptr)
+        return self
+
+    def def_iand[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__iand__` via the `nb_inplace_and` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_and
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_and
+        ](self._ptr)
+        return self
+
+    def def_ifloordiv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ifloordiv__` via the `nb_inplace_floor_divide` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_floor_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_floor_divide
+        ](self._ptr)
+        return self
+
+    def def_ilshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ilshift__` via the `nb_inplace_lshift` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_lshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_lshift
+        ](self._ptr)
+        return self
+
+    def def_imatmul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imatmul__` via the `nb_inplace_matrix_multiply` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_matrix_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_matrix_multiply
+        ](self._ptr)
+        return self
+
+    def def_imod[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imod__` via the `nb_inplace_remainder` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_remainder
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_remainder
+        ](self._ptr)
+        return self
+
+    def def_imul[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imul__` via the `nb_inplace_multiply` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_multiply
+        ](self._ptr)
+        return self
+
+    def def_ior[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ior__` via the `nb_inplace_or` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_or
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_or
+        ](self._ptr)
+        return self
+
+    def def_irshift[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__irshift__` via the `nb_inplace_rshift` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_rshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_rshift
+        ](self._ptr)
+        return self
+
+    def def_isub[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__isub__` via the `nb_inplace_subtract` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_subtract
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_subtract
+        ](self._ptr)
+        return self
+
+    def def_itruediv[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__itruediv__` via the `nb_inplace_true_divide` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_true_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_true_divide
+        ](self._ptr)
+        return self
+
+    def def_ixor[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin], PythonObject
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ixor__` via the `nb_inplace_xor` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_xor
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_xor
+        ](self._ptr)
+        return self
+
+    # Value-receiver binary overloads
+
+    def def_add[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__add__` via the `nb_add` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_add
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[Self.self_type, method, PySlotIndex.nb_add](
+            self._ptr
+        )
+        return self
+
+    def def_and[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__and__` via the `nb_and` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_and
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[Self.self_type, method, PySlotIndex.nb_and](
+            self._ptr
+        )
+        return self
+
+    def def_divmod[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__divmod__` via the `nb_divmod` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_divmod
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_divmod
+        ](self._ptr)
+        return self
+
+    def def_floordiv[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__floordiv__` via the `nb_floor_divide` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_floor_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_floor_divide
+        ](self._ptr)
+        return self
+
+    def def_lshift[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__lshift__` via the `nb_lshift` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_lshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_lshift
+        ](self._ptr)
+        return self
+
+    def def_matmul[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__matmul__` via the `nb_matrix_multiply` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_matrix_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_matrix_multiply
+        ](self._ptr)
+        return self
+
+    def def_mod[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__mod__` via the `nb_remainder` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_remainder
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_remainder
+        ](self._ptr)
+        return self
+
+    def def_mul[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__mul__` via the `nb_multiply` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_multiply
+        ](self._ptr)
+        return self
+
+    def def_or[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__or__` via the `nb_or` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_or
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[Self.self_type, method, PySlotIndex.nb_or](
+            self._ptr
+        )
+        return self
+
+    def def_rshift[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__rshift__` via the `nb_rshift` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_rshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_rshift
+        ](self._ptr)
+        return self
+
+    def def_sub[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__sub__` via the `nb_subtract` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_subtract
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_subtract
+        ](self._ptr)
+        return self
+
+    def def_truediv[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__truediv__` via the `nb_true_divide` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_true_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[
+            Self.self_type, method, PySlotIndex.nb_true_divide
+        ](self._ptr)
+        return self
+
+    def def_xor[
+        method: def(
+            Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__xor__` via the `nb_xor` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_xor
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_val[Self.self_type, method, PySlotIndex.nb_xor](
+            self._ptr
+        )
+        return self
+
+    # ------------------------------------------------------------------
+    # Ternary slots — C type: ternaryfunc  def(PyObject *, PyObject *, PyObject *) -> PyObject *
+    # `mod` is None unless pow(base, exp, mod) was called.
+    # Raise NotImplementedError() to return Py_NotImplemented.
+    # ------------------------------------------------------------------
+
+    def def_pow[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin],
+            PythonObject,
+            PythonObject,
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__pow__` via the `nb_power` slot.
+
+        Called by `obj ** exp`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_power
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.ternary[Self.self_type, method, PySlotIndex.nb_power](
+            self._ptr
+        )
+        return self
+
+    def def_ipow[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin],
+            PythonObject,
+            PythonObject,
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ipow__` via the `nb_inplace_power` slot.
+
+        Called by `obj **= exp`.
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_power
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.ternary[
+            Self.self_type, method, PySlotIndex.nb_inplace_power
+        ](self._ptr)
+        return self
+
+    # Non-raising ternary overloads
+
+    def def_pow[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin],
+            PythonObject,
+            PythonObject,
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__pow__` via the `nb_power` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_power
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.ternary_nr[Self.self_type, method, PySlotIndex.nb_power](
+            self._ptr
+        )
+        return self
+
+    def def_ipow[
+        method: def(
+            UnsafePointer[Self.self_type, MutAnyOrigin],
+            PythonObject,
+            PythonObject,
+        ) thin -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ipow__` via the `nb_inplace_power` slot (non-raising overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_power
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.ternary_nr[
+            Self.self_type, method, PySlotIndex.nb_inplace_power
+        ](self._ptr)
+        return self
+
+    def def_pow[
+        method: def(
+            Self.self_type, PythonObject, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__pow__` via the `nb_power` slot (value-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_power
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.ternary_val[
+            Self.self_type, method, PySlotIndex.nb_power
+        ](self._ptr)
+        return self
+
+    # Mut-receiver overloads
+
+    def def_iadd[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__iadd__` via the `nb_inplace_add` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_add
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_add
+        ](self._ptr)
+        return self
+
+    def def_iand[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__iand__` via the `nb_inplace_and` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_and
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_and
+        ](self._ptr)
+        return self
+
+    def def_ifloordiv[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ifloordiv__` via the `nb_inplace_floor_divide` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_floor_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_floor_divide
+        ](self._ptr)
+        return self
+
+    def def_ilshift[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ilshift__` via the `nb_inplace_lshift` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_lshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_lshift
+        ](self._ptr)
+        return self
+
+    def def_imatmul[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imatmul__` via the `nb_inplace_matrix_multiply` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_matrix_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_matrix_multiply
+        ](self._ptr)
+        return self
+
+    def def_imod[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imod__` via the `nb_inplace_remainder` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_remainder
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_remainder
+        ](self._ptr)
+        return self
+
+    def def_imul[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__imul__` via the `nb_inplace_multiply` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_multiply
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_multiply
+        ](self._ptr)
+        return self
+
+    def def_ior[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ior__` via the `nb_inplace_or` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_or
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_or
+        ](self._ptr)
+        return self
+
+    def def_irshift[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__irshift__` via the `nb_inplace_rshift` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_rshift
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_rshift
+        ](self._ptr)
+        return self
+
+    def def_isub[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__isub__` via the `nb_inplace_subtract` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_subtract
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_subtract
+        ](self._ptr)
+        return self
+
+    def def_itruediv[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__itruediv__` via the `nb_inplace_true_divide` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_true_divide
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_true_divide
+        ](self._ptr)
+        return self
+
+    def def_ixor[
+        method: def(
+            mut Self.self_type, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ixor__` via the `nb_inplace_xor` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_xor
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.binary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_xor
+        ](self._ptr)
+        return self
+
+    def def_ipow[
+        method: def(
+            mut Self.self_type, PythonObject, PythonObject
+        ) thin raises PySlotError -> PythonObject
+    ](mut self) -> ref[self] Self:
+        """Install `__ipow__` via the `nb_inplace_power` slot (mut-receiver overload).
+
+        See: https://docs.python.org/3/c-api/typeobj.html#c.PyNumberMethods.nb_inplace_power
+
+        Parameters:
+            method: The user-supplied handler installed into the slot.
+
+        Returns:
+            A reference to `self` for chaining.
+        """
+        _SlotInstaller.ternary_mut[
+            Self.self_type, method, PySlotIndex.nb_inplace_power
+        ](self._ptr)
+        return self
+

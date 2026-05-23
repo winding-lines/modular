@@ -12,12 +12,16 @@
 # ===----------------------------------------------------------------------=== #
 
 # ===----------------------------------------------------------------------=== #
-# Test for NumberProtocolBuilder unary/bool/conversion slots.
+# Test for NumberProtocolBuilder.
 #
 # Exposes a Number type (wrapping Int) to Python that supports:
 #   - -n, abs(n), +n, ~n                   via nb_negative/absolute/positive/invert
 #   - bool(n)                              via nb_bool
 #   - int(n), float(n), operator.index(n)  via nb_int/float/index
+#   - n + m, n - m, n * m, n // m, n % m  via nb_add/subtract/multiply/floor_divide/remainder
+#   - n & m, n | m, n ^ m                 via nb_and/or/xor
+#   - n << m, n >> m                       via nb_lshift/rshift
+#   - n ** m                               via nb_power
 # ===----------------------------------------------------------------------=== #
 
 from std.os import abort
@@ -126,12 +130,145 @@ struct Number(Defaultable, Movable, Writable):
     ) raises PySlotError -> PythonObject:
         return PythonObject(self_ptr[].value)
 
+    # ------------------------------------------------------------------
+    # Binary slots — raise NotImplementedError for non-Number operands
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def py__add__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        # Magic value 42 on the LHS exercises the NotImplemented path even
+        # when the operands look compatible. Because CPython reuses `nb_add`
+        # for both `__add__` and `__radd__`, this fires whether `n(42)` is
+        # on the left (direct call) or on the right of a `<other> + n(42)`
+        # expression (reflected call after the LHS slot returns
+        # NotImplemented).
+        if self_ptr[].value == 42:
+            raise PySlotError.not_implemented()
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return _alloc(Number(self_ptr[].value + o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__sub__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value - o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__mul__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value * o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__floordiv__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value // o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__mod__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value % o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__and__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value & o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__or__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value | o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__xor__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value ^ o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__lshift__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value << o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    @staticmethod
+    def py__rshift__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin], other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=Number(self_ptr[].value >> o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    # ------------------------------------------------------------------
+    # Ternary slot
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def py__pow__(
+        self_ptr: UnsafePointer[Self, MutAnyOrigin],
+        exp: PythonObject,
+        mod: PythonObject,
+    ) raises PySlotError -> PythonObject:
+        # Magic value 42 on the base exercises the NotImplemented path of
+        # the ternary wrapper (`nb_power`).
+        if self_ptr[].value == 42:
+            raise PySlotError.not_implemented()
+        try:
+            var e = exp.downcast_value_ptr[Self]()
+            var result = Int(Float64(self_ptr[].value) ** Float64(e[].value))
+            return _alloc(Number(result))
+        except:
+            raise PySlotError.not_implemented()
+
     def write_to(self, mut writer: Some[Writer]):
         writer.write("Number(", self.value, ")")
 
 
-# NumberV uses value-receiver handlers.  Unary/bool/conversion slots are
-# non-raising for the bool slot and raising for the rest.
+# NumberV uses value-receiver handlers.  Simple unary/bool slots are
+# non-raising; binary slots that need NotImplementedError are raising.
 struct NumberV(Defaultable, Movable, Writable):
     var value: Int
 
@@ -183,8 +320,166 @@ struct NumberV(Defaultable, Movable, Writable):
     def py__index__(self) raises PySlotError -> PythonObject:
         return PythonObject(self.value)
 
+    # Raising value receivers for binary slots (need NotImplementedError)
+    def py__add__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value + o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__sub__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value - o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__mul__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value * o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__floordiv__(
+        self, other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value // o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__mod__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value % o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__and__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value & o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__or__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value | o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__xor__(self, other: PythonObject) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value ^ o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__lshift__(
+        self, other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value << o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__rshift__(
+        self, other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            return PythonObject(alloc=NumberV(self.value >> o[].value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__pow__(
+        self, exp: PythonObject, mod: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var e = exp.downcast_value_ptr[Self]()
+            var result = Int(Float64(self.value) ** Float64(e[].value))
+            return PythonObject(alloc=NumberV(result))
+        except:
+            raise PySlotError.not_implemented()
+
     def write_to(self, mut writer: Some[Writer]):
         writer.write("NumberV(", self.value, ")")
+
+
+# NumberM uses mut-receiver handlers for in-place operators.
+struct NumberM(Defaultable, Movable, Writable):
+    var value: Int
+
+    def __init__(out self):
+        self.value = 0
+
+    def __init__(out self, value: Int):
+        self.value = value
+
+    @staticmethod
+    def _get_self_ptr(
+        py_self: PythonObject,
+    ) -> UnsafePointer[Self, MutAnyOrigin]:
+        try:
+            return py_self.downcast_value_ptr[Self]()
+        except e:
+            abort(String("downcast failed: ", e))
+
+    @staticmethod
+    def new(value: PythonObject) raises -> PythonObject:
+        return PythonObject(alloc=NumberM(Int(py=value)))
+
+    @staticmethod
+    def get_value(py_self: PythonObject) raises -> PythonObject:
+        return PythonObject(Self._get_self_ptr(py_self)[].value)
+
+    def py__iadd__(
+        mut self, other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            self.value += o[].value
+            return PythonObject(alloc=NumberM(self.value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__isub__(
+        mut self, other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            self.value -= o[].value
+            return PythonObject(alloc=NumberM(self.value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__imul__(
+        mut self, other: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var o = other.downcast_value_ptr[Self]()
+            self.value *= o[].value
+            return PythonObject(alloc=NumberM(self.value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def py__ipow__(
+        mut self, exp: PythonObject, mod: PythonObject
+    ) raises PySlotError -> PythonObject:
+        try:
+            var e = exp.downcast_value_ptr[Self]()
+            self.value = Int(Float64(self.value) ** Float64(e[].value))
+            return PythonObject(alloc=NumberM(self.value))
+        except:
+            raise PySlotError.not_implemented()
+
+    def write_to(self, mut writer: Some[Writer]):
+        writer.write("NumberM(", self.value, ")")
 
 
 @export
@@ -207,6 +502,17 @@ def PyInit_number_mojo_module() -> PythonObject:
             .def_int[Number.py__int__]()
             .def_float[Number.py__float__]()
             .def_index[Number.py__index__]()
+            .def_add[Number.py__add__]()
+            .def_sub[Number.py__sub__]()
+            .def_mul[Number.py__mul__]()
+            .def_floordiv[Number.py__floordiv__]()
+            .def_mod[Number.py__mod__]()
+            .def_and[Number.py__and__]()
+            .def_or[Number.py__or__]()
+            .def_xor[Number.py__xor__]()
+            .def_lshift[Number.py__lshift__]()
+            .def_rshift[Number.py__rshift__]()
+            .def_pow[Number.py__pow__]()
         )
         ref tbv = (
             b.add_type[NumberV]("NumberV")
@@ -224,6 +530,30 @@ def PyInit_number_mojo_module() -> PythonObject:
             .def_int[NumberV.py__int__]()
             .def_float[NumberV.py__float__]()
             .def_index[NumberV.py__index__]()
+            .def_add[NumberV.py__add__]()
+            .def_sub[NumberV.py__sub__]()
+            .def_mul[NumberV.py__mul__]()
+            .def_floordiv[NumberV.py__floordiv__]()
+            .def_mod[NumberV.py__mod__]()
+            .def_and[NumberV.py__and__]()
+            .def_or[NumberV.py__or__]()
+            .def_xor[NumberV.py__xor__]()
+            .def_lshift[NumberV.py__lshift__]()
+            .def_rshift[NumberV.py__rshift__]()
+            .def_pow[NumberV.py__pow__]()
+        )
+        ref tbm = (
+            b.add_type[NumberM]("NumberM")
+            .def_init_defaultable[NumberM]()
+            .def_staticmethod[NumberM.new]("new")
+            .def_method[NumberM.get_value]("get_value")
+        )
+        var npbm = NumberProtocolBuilder[NumberM](tbm)
+        _ = (
+            npbm.def_iadd[NumberM.py__iadd__]()
+            .def_isub[NumberM.py__isub__]()
+            .def_imul[NumberM.py__imul__]()
+            .def_ipow[NumberM.py__ipow__]()
         )
         return b.finalize()
     except e:
