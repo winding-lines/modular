@@ -17,4 +17,5 @@ This module aggregates the per-protocol builder types so callers can import
 them from a single location.
 """
 
+from .mapping import MappingProtocolBuilder
 from .type_protocol import TypeProtocolBuilder
