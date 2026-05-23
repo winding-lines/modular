@@ -9,6 +9,7 @@ _NUMPY_TESTS = [
 
 _SHARED_LIB_MOJO_SRCS = [
     "mapping_mojo_module.mojo",
+    "number_mojo_module.mojo",
     "sequence_mojo_module.mojo",
     "type_protocol_mojo_module.mojo",
 ]
@@ -65,6 +66,7 @@ _SHARED_LIB_MOJO_SRCS = [
 
 _PROTOCOL_TESTS = [
     "mapping",
+    "number",
     "sequence",
     "type_protocol",
 ]

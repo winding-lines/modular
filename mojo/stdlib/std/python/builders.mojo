@@ -18,5 +18,6 @@ them from a single location.
 """
 
 from .mapping import MappingProtocolBuilder
+from .number import NumberProtocolBuilder
 from .sequence import SequenceProtocolBuilder
 from .type_protocol import TypeProtocolBuilder
